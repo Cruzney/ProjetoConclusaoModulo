@@ -1,8 +1,8 @@
 package com.tasklist.util;
 
 import com.tasklist.model.Tarefa;
-import com.tasklist.service.GerenciadorDeTarefas;
 import com.tasklist.model.Status;
+import com.tasklist.service.GerenciadorDeTarefas;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,8 +11,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main ( String[] args ) {
-        GerenciadorDeTarefas gerenciador = new GerenciadorDeTarefas();
-        Scanner scanner = new Scanner (System.in);
+        GerenciadorDeTarefas gerenciador = new GerenciadorDeTarefas ();
+        Scanner scanner = new Scanner(System.in);
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         int opcao;
 
@@ -23,7 +23,8 @@ public class Main {
             System.out.println("3. Editar tarefa");
             System.out.println("4. Deletar tarefa");
             System.out.println("5. Consultar tarefas em vencimento");
-            System.out.println("6. Sair");
+            System.out.println("6. Salvar tarefas em arquivo");
+            System.out.println("7. Sair");
             System.out.print("Escolha uma opção: ");
 
             try {
@@ -62,17 +63,17 @@ public class Main {
                     System.out.print("Escolha uma opção: ");
                     String listarOpcao = scanner.nextLine().toLowerCase();
                     if (listarOpcao.equals("a")) {
-                        gerenciador.ListarTarefas(null, null).forEach(System.out::println);
+                        gerenciador.listarTarefas(null, null).forEach(System.out::println);
                     } else if (listarOpcao.equals("b")) {
                         System.out.print("Digite o título para filtrar: ");
                         String filtroTitulo = scanner.nextLine();
-                        gerenciador.ListarTarefas(filtroTitulo, null).forEach(System.out::println);
+                        gerenciador.listarTarefas(filtroTitulo, null).forEach(System.out::println);
                     } else if (listarOpcao.equals("c")) {
                         System.out.print("Digite a data de vencimento para filtrar (yyyy-MM-dd): ");
                         String filtroDataStr = scanner.nextLine();
                         try {
                             LocalDate filtroData = LocalDate.parse(filtroDataStr, dateFormatter);
-                            gerenciador.ListarTarefas(null, filtroData).forEach(System.out::println);
+                            gerenciador.listarTarefas(null, filtroData).forEach(System.out::println);
                         } catch (DateTimeParseException e) {
                             System.out.println("Formato de data inválido. Use yyyy-MM-dd.");
                         }
@@ -159,6 +160,11 @@ public class Main {
                     break;
 
                 case 6:
+                    System.out.println("\n--- Salvar tarefas em arquivo ---");
+                    gerenciador.salvarTarefas();
+                    break;
+
+                case 7:
                     System.out.println("\nSaindo do Gerenciador de Tarefas. Até logo!");
                     break;
 
@@ -167,7 +173,7 @@ public class Main {
                         System.out.println("Opção inválida. Por favor, escolha uma opção do menu.");
                     }
             }
-        } while (opcao != 6);
+        } while (opcao != 7);
 
         scanner.close();
     }
