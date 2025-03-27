@@ -1,7 +1,8 @@
 package com.tasklist.util;
 
-import com.tasklist.model.Tarefa;
 import com.tasklist.model.Status;
+import com.tasklist.model.Tarefa;
+import com.tasklist.repository.ArquivoTarefaRepository;
 import com.tasklist.service.GerenciadorDeTarefas;
 
 import java.time.LocalDate;
@@ -10,8 +11,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main ( String[] args ) {
-        GerenciadorDeTarefas gerenciador = new GerenciadorDeTarefas ();
+    public static void main(String[] args) {
+        ArquivoTarefaRepository tarefaRepository = new ArquivoTarefaRepository();
+        GerenciadorDeTarefas gerenciador = new GerenciadorDeTarefas(tarefaRepository);
         Scanner scanner = new Scanner(System.in);
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         int opcao;
@@ -49,7 +51,7 @@ public class Main {
                         LocalDate dataLimite = LocalDate.parse(dataLimiteStr, dateFormatter);
                         gerenciador.cadastrarTarefa(titulo, descricao, dataLimite);
                     } catch (DateTimeParseException e) {
-                        System.out.println("Formato de data inválido. Use yyyy-MM-dd.");
+                        System.out.println("Formato de data inválido. Use<ctrl3348>-MM-dd.");
                     } catch (IllegalArgumentException e) {
                         System.out.println("Erro ao cadastrar tarefa: " + e.getMessage());
                     }
@@ -75,7 +77,7 @@ public class Main {
                             LocalDate filtroData = LocalDate.parse(filtroDataStr, dateFormatter);
                             gerenciador.listarTarefas(null, filtroData).forEach(System.out::println);
                         } catch (DateTimeParseException e) {
-                            System.out.println("Formato de data inválido. Use yyyy-MM-dd.");
+                            System.out.println("Formato de data inválido. Use<ctrl3348>-MM-dd.");
                         }
                     } else {
                         System.out.println("Opção inválida.");

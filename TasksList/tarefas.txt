@@ -1,1 +1,2 @@
-1;JavaStudy;Estudar Java;2025-04-01;;PENDENTE;2025-03-26 06:18:20
+1;JavaStudy;Estudar Java;2025-04-01;;PENDENTE;2025-03-26 23:24:58
+1;Teste Cruz ;Testando aplicação refatorada;2025-03-27;;PENDENTE;2025-03-26 23:24:58
